@@ -17,11 +17,11 @@ NEWSPIDER_MODULE = 'wanderu.spiders'
 
 DATABASE = {
     'drivername': 'postgres',
-    'host': 'localhost',
+    'host': '75.126.113.172',
     'port': '5432',
-    'username': 'Shawn',
-    'password': '',
-    'database': 'scrape'
+    'username': 'scraper',
+    'password': 'walney',
+    'database': 'wanderudb'
 }
 
 ITEM_PIPELINES = {
@@ -32,11 +32,14 @@ DOWNLOAD_HANDLERS = {
   's3': None,
 }
 
+DOWNLOAD_DELAY = 0.25
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'wanderu (+http://www.yourdomain.com)'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS=32
+CONCURRENT_REQUESTS=1
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay

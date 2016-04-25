@@ -65,6 +65,8 @@ class WanderuSpider(Spider):
         chromedriver = os.path.join(os.path.dirname(__file__), "chromedriver")
         os.environ["webdriver.chrome.driver"] = chromedriver
         self.driver = webdriver.Chrome(chromedriver)
+
+
         dispatcher.connect(self.close, signals.spider_closed)
         self.vdisplay.start()
 
@@ -73,6 +75,12 @@ class WanderuSpider(Spider):
         self.vdisplay.stop()
 
     def parse(self, response):
+        def strip_dollar(x):
+            return x.strip('$')
+
+
+
+
         self.driver.get(response.url)
         try:
             WebDriverWait(self.driver, 15).until(
@@ -105,12 +113,16 @@ class WanderuSpider(Spider):
 
             loader.default_input_processor = MapCompose(unicode.strip)
             loader.default_output_processor = Join()
+            loader.price_in = MapCompose(strip_dollar)
+
 
             for field, xpath in self.item_fields.iteritems():
                 loader.add_xpath(field, xpath)
             dateoftrip = str(response.url).split("/")[-1]
             loader.add_value('dateoftrip', dateoftrip.decode('unicode-escape'))
             yield loader.load_item()
+
+        
 
 
 

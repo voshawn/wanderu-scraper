@@ -21,4 +21,5 @@ class BusTrip(Item):
     duration = Field()
     features = Field()
     dateoftrip = Field()
+    soldout = Field()
 
